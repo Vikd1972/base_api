@@ -1,0 +1,9 @@
+{
+  "name": "expressapp",
+  "version": "1.0.0",
+  "dependencies": {
+    "express": "^4.16.4",
+    "pg": "^8.7.1",
+    "sequelize": "^6.6.5"
+  }
+}
