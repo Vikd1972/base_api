@@ -1,55 +1,55 @@
-const { response } = require("express");
+//const { response } = require("express");
 const express = require("express");
-//const Sequelize = require("sequelize");
 const router = express.Router();
 
 const User = require("../model/user");
 
 router.post("/create", (req, res) => {
   if (!req.body) return res.sendStatus(400);
-  const usern = req.body.fullname;
-  const usere = req.body.email;
-  const userd = req.body.dob;
 
-  User.create({ fullname: usern, email: usere, dob: userd })
-    .then(() => {
-      res.redirect("/");
+  const { fullname, email, dob } = req.body;
+
+  User.create({ fullname, email, dob })
+    .then((user) => {
+      res.send("user added");
+      return;
     })
     .catch((err) => console.log(err));
 });
 
 router.delete("/delete", (req, res) => {
-  const usere = req.body.email;
-  User.destroy({ where: { email: usere } })
+  User.destroy({ where: { email: req.body.email } })
     .then(() => {
-      res.redirect("/");
+      res.send("user deleted");
+      return;
     })
     .catch((err) => console.log(err));
 });
 
 router.put("/search", (req, res) => {
-  const usere = req.body.email;
-  User.findOne({ where: { email: usere } })
+  const useremail = req.body.email;
+  User.findOne({ where: { email: useremail } })
     .then((user) => {
-      if (!user) return;
+      res.json(user);
+      return;
     })
     .catch((err) => console.log(err));
 });
 
 router.post("/edit", (req, res) => {
   if (!req.body) return res.sendStatus(400);
-  const oldusere = req.body.oldemail;
-  const usern = req.body.fullname;
-  const usere = req.body.email;
-  const userd = req.body.dob;
+  const olduseremail = req.body.oldemail;
+  const userfullname = req.body.fullname;
+  const useremail = req.body.email;
+  const userdob = req.body.dob;
   let userid = null;
 
-  User.findOne({ where: { email: oldusere } })
+  User.findOne({ where: { email: olduseremail } })
     .then((user) => {
-      if (!user) return;
+       res.send("user changed");
       userid = user.id;
       User.update(
-        { fullname: usern, email: usere, dob: userd },
+        { fullname: userfullname, email: useremail, dob: userdob },
         { where: { id: userid } }
       ).then((res) => {
         console.log(res);
@@ -61,7 +61,7 @@ router.post("/edit", (req, res) => {
 router.get("/", (req, res) => {
   User.findAll({ raw: true })
     .then((users) => {
-      console.log(users);
+      res.json(users);
       return;
     })
     .catch((err) => console.log(err));
