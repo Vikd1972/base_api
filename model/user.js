@@ -3,10 +3,15 @@ const Sequelize = require("sequelize");
 //var crypto = require("crypto");
 
 const sequelize = new Sequelize("user2db", "user2", "root1234", {
-  dialect: "postgres"
- });
+  dialect: "postgres",
+  host: "localhost",
+  define: {
+    timestamps: false,
+  },
+});
 
-const User = sequelize.define("user", {
+
+const User = sequelize.define("userdb", {
   id: {
     type: Sequelize.INTEGER,
     autoIncrement: true,
@@ -18,13 +23,18 @@ const User = sequelize.define("user", {
     allowNull: false,
   },
   email: {
-    type: Sequelize.INTEGER,
+    type: Sequelize.STRING,
     allowNull: false,
   },
   dob: {
-    type: Sequelize.DATE,
+    type: Sequelize.DATEONLY,
     allowNull: false,
   },
 });
+
+sequelize
+  .sync()
+  .then((result) => console.log('База синхронизирована'))
+  .catch((err) => console.log(err));
 
 module.exports = User;
