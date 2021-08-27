@@ -11,7 +11,7 @@ const sequelize = new Sequelize("user2db", "user2", "root1234", {
 });
 
 
-const User = sequelize.define("userdb", {
+const User = sequelize.define("userdb2", {
   id: {
     type: Sequelize.INTEGER,
     autoIncrement: true,
@@ -30,11 +30,15 @@ const User = sequelize.define("userdb", {
     type: Sequelize.DATEONLY,
     allowNull: false,
   },
+  token: {
+    type: Sequelize.STRING,
+    allowNull: false,
+  },
 });
 
 sequelize
   .sync()
-  .then((result) => console.log('База синхронизирована'))
+  .then((result) => console.log("Database synchronized"))
   .catch((err) => console.log(err));
 
 module.exports = User;
