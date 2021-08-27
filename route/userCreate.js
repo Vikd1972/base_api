@@ -7,33 +7,13 @@ const User = require("../model/user");
 router.post("/", (req, res) => {
   if (!req.body) return res.sendStatus(400);
 
-  const userFullName = req.body.fullname;
-  const userEmail = req.body.email;
-  const userDob = req.body.dob;
+  const { fullname, email, dob } = req.body;
   const password = req.body.password;
-  let userToken = "";
+  const userHash = crypto
+    .pbkdf2Sync(password, email, 1000, 64, `sha512`)
+    .toString(`hex`);
 
-  const useToken = () => {
-    const header = Buffer.from(
-        JSON.stringify({ alg: 'HS256', typ: 'jwt' })
-      ).toString('base64');
-    const payload = Buffer.from(JSON.stringify(userEmail)).toString(
-        'base64'
-      );
-    const signature = crypto
-      .createHmac("SHA256", password)
-      .update(`${header}.${payload}`)
-      .digest("base64");
-    userToken = `${header}.${payload}.${signature}`;
-  };
-  useToken();
-
-  User.create({
-    fullname: userFullName,
-    email: userEmail,
-    dob: userDob,
-    token: userToken,
-  })
+  User.create({fullname, email, dob, hash: userHash })
     .then((user) => {
       res.send("user added");
       return;

@@ -1,23 +1,22 @@
 const express = require("express");
-const crypto = require("crypto");
 const router = express.Router();
+
+const middleware = require("../middleware/middleware");
 
 const User = require("../model/user");
 
-router.post("/", (req, res) => {
+router.post("/", middleware.checkToken, (req, res) => {
   if (!req.body) return res.sendStatus(400);
-  const olduseremail = req.body.oldemail;
-  const userfullname = req.body.fullname;
-  const useremail = req.body.email;
-  const userdob = req.body.dob;
+  const oldUserEmail = req.body.oldemail;
+  const { fullname, email, dob } = req.body;
   let userid = null;
 
-  User.findOne({ where: { email: olduseremail } })
+  User.findOne({ where: { email: oldUserEmail } })
     .then((user) => {
       res.send("user changed");
       userid = user.id;
       User.update(
-        { fullname: userfullname, email: useremail, dob: userdob },
+        { fullname, email, dob },
         { where: { id: userid } }
       ).then((res) => {
         console.log(res);

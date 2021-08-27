@@ -1,10 +1,11 @@
 const express = require("express");
-const crypto = require("crypto");
 const router = express.Router();
+
+const middleware = require("../middleware/middleware");
 
 const User = require("../model/user");
 
-router.delete("/", (req, res) => {
+router.delete("/", middleware.checkToken, (req, res) => {
   User.destroy({ where: { email: req.body.email } })
     .then(() => {
       res.send("user deleted");

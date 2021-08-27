@@ -1,11 +1,11 @@
-//const { response } = require("express");
 const express = require("express");
-const crypto = require("crypto");
 const router = express.Router();
+
+const middleware = require("../middleware/middleware");
 
 const User = require("../model/user");
 
-router.get("/", (req, res) => {
+router.use("/", middleware.checkToken, (req, res) => {
   User.findAll({ raw: true })
     .then((users) => {
       res.json(users);

@@ -1,7 +1,5 @@
 const Sequelize = require("sequelize");
 
-//var crypto = require("crypto");
-
 const sequelize = new Sequelize("user2db", "user2", "root1234", {
   dialect: "postgres",
   host: "localhost",
@@ -10,8 +8,7 @@ const sequelize = new Sequelize("user2db", "user2", "root1234", {
   },
 });
 
-
-const User = sequelize.define("userdb2", {
+const User = sequelize.define("userdb4", {
   id: {
     type: Sequelize.INTEGER,
     autoIncrement: true,
@@ -30,7 +27,7 @@ const User = sequelize.define("userdb2", {
     type: Sequelize.DATEONLY,
     allowNull: false,
   },
-  token: {
+  hash: {
     type: Sequelize.STRING,
     allowNull: false,
   },

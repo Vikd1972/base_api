@@ -5,10 +5,17 @@ const app = express();
 app.use(express.json());
 
 const userCreate = require("./route/userCreate");
+app.use("/api/user/create", userCreate);
 const userDelete = require("./route/userDelete");
+app.use("/api/user/delete", userDelete);
 const userSearch = require("./route/userSearch");
+app.use("/api/user/search", userSearch);
 const userEdit = require("./route/userEdit");
+app.use("/api/user/edit", userEdit);
+const userLogin = require("./route/userLogin");
+app.use("/api/user/login", userLogin);
 const user = require("./route/user");
+app.use("/api/user", user);
 
 const sequelize = new Sequelize("user2db", "user2", "root1234", {
   dialect: "postgres",
@@ -17,11 +24,6 @@ const sequelize = new Sequelize("user2db", "user2", "root1234", {
     timestamps: false,
   },
 });
-app.use("/api/user/create", userCreate);
-app.use("/api/user/delete", userDelete);
-app.use("/api/user/search", userSearch);
-app.use("/api/user/edit", userEdit);
-app.use("/api/user", user);
 
 sequelize
   .sync()
