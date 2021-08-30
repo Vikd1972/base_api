@@ -12,8 +12,16 @@ router.post("/", (req, res) => {
   const userHash = crypto
     .pbkdf2Sync(password, email, 1000, 64, `sha512`)
     .toString(`hex`);
+  
 
-  User.create({fullname, email, dob, hash: userHash })
+  User.create({
+    fullname,
+    email,
+    dob,
+    hash: userHash,
+    createdAt: new Date(),
+    updatedAt: new Date(),
+  })
     .then((user) => {
       res.send("user added");
       return;

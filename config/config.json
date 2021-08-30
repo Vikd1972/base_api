@@ -1,12 +1,9 @@
 {
-  "user2db": {
+  "development": {
     "username": "user2",
     "password": "root1234",
-    "database": "userdb4",
+    "database": "user2db",
     "host": "127.0.0.1",
-    "dialect": "postgres",
-    "define": {
-      "timestamps": false
-    }
+    "dialect": "postgres"
   }
 }

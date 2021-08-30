@@ -8,7 +8,7 @@ const sequelize = new Sequelize("user2db", "user2", "root1234", {
   },
 });
 
-const User = sequelize.define("userdb4", {
+const User = sequelize.define("Users", {
   id: {
     type: Sequelize.INTEGER,
     autoIncrement: true,
@@ -30,6 +30,14 @@ const User = sequelize.define("userdb4", {
   hash: {
     type: Sequelize.STRING,
     allowNull: false,
+  },
+  createdAt: {
+    allowNull: false,
+    type: Sequelize.DATE,
+  },
+  updatedAt: {
+    allowNull: false,
+    type: Sequelize.DATE,
   },
 });
 
