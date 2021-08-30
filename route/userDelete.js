@@ -5,7 +5,7 @@ const middleware = require("../middleware/middleware");
 
 const User = require("../model/user");
 
-router.delete("/", middleware.checkToken, (req, res) => {
+router.delete("/", (req, res) => {
   User.destroy({ where: { email: req.body.email } })
     .then(() => {
       res.send("user deleted");

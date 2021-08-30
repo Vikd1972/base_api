@@ -18,8 +18,6 @@ exports.checkToken = (req, res, next) => {
         .update(`${header}.${payload}`)
         .digest("base64");
       const token = `${header}.${payload}.${signature}`;
-      console.log(token);
-      console.log(req.headers.authorization.split(" ")[1]);
       if (token === req.headers.authorization.split(" ")[1]) {
         return next();
       } else {

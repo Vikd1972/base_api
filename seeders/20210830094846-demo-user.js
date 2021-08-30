@@ -9,7 +9,7 @@ const userHash = crypto
 
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    return queryInterface.bulkInsert("Users", [
+    return queryInterface.bulkInsert("userdb5s", [
       {
         fullname: "Someone",
         email: userEmail,
@@ -17,11 +17,12 @@ module.exports = {
         hash: userHash,
         createdAt: new Date(),
         updatedAt: new Date(),
+        gender: "men",
       },
     ]);
   },
 
   down: async (queryInterface, Sequelize) => {
-    return queryInterface.bulkDelete("Users", null, {});
+    return queryInterface.bulkDelete("userdb5s", null, {});
   },
 };

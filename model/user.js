@@ -8,7 +8,7 @@ const sequelize = new Sequelize("user2db", "user2", "root1234", {
   },
 });
 
-const User = sequelize.define("Users", {
+const User = sequelize.define("userdb5", {
   id: {
     type: Sequelize.INTEGER,
     autoIncrement: true,

@@ -5,9 +5,10 @@ const middleware = require("../middleware/middleware");
 
 const User = require("../model/user");
 
-router.use("/", middleware.checkToken, (req, res) => {
+router.use("/", (req, res) => {
   User.findAll({ raw: true })
     .then((users) => {
+      console.log(users)
         res.json(users);
       return;
     })
