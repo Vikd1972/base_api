@@ -1,9 +1,9 @@
 const crypto = require("crypto");
 
-exports.checkToken = (req, res, next) => {
-  const User = require("../model/user");
-  const secretWord = "SeCrEdWoRd";
+const User = require("../model/user");
+const secretWord = "SeCrEdWoRd";
 
+exports.checkToken = (req, res, next) => {
   User.findOne({ where: { fullname: "Admin" } })
     .then((user) => {
       const header = Buffer.from(
