@@ -3,7 +3,8 @@ const router = express.Router();
 
 const middleware = require("../middleware/middleware");
 
-const User = require("../model/user");
+const db  = require("../models");
+const { User } = db;
 
 router.delete("/", (req, res) => {
   User.destroy({ where: { email: req.body.email } })

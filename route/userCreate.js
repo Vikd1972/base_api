@@ -2,7 +2,8 @@ const express = require("express");
 const crypto = require("crypto");
 const router = express.Router();
 
-const User = require("../model/user");
+const db  = require("../models");
+const { User } = db;
 
 router.post("/", (req, res) => {
   if (!req.body) return res.sendStatus(400);
@@ -21,6 +22,7 @@ router.post("/", (req, res) => {
     hash: userHash,
     createdAt: new Date(),
     updatedAt: new Date(),
+    gender: "man"
   })
     .then((user) => {
       res.send("user added");

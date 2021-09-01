@@ -3,16 +3,19 @@ const router = express.Router();
 
 const middleware = require("../middleware/middleware");
 
-const User = require("../model/user");
+const db  = require("../models");
+const { User } = db;
 
-router.use("/", (req, res) => {
-  User.findAll({ raw: true })
-    .then((users) => {
-      console.log(users)
-        res.json(users);
-      return;
-    })
-    .catch((err) => console.log(err));
+router.use("/", async (req, res) => {
+  try {
+    const users = await User.findAll({ raw: true });
+    res.json(users);
+  } catch (e) {
+    console.log(e);
+    res.status(401).json({
+      error: e.message,
+    });
+  }
 });
 
 module.exports = router;

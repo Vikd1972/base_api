@@ -2,7 +2,8 @@ const express = require("express");
 const crypto = require("crypto");
 const router = express.Router();
 
-const User = require("../model/user");
+const db  = require("../models");
+const { User } = db;
 
 const secretWord = "SeCrEdWoRd";
   

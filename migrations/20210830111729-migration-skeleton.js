@@ -2,7 +2,10 @@
 
 module.exports = {
   up: function (queryInterface, Sequelize) {
-    return queryInterface.addColumn("userdb5s", "gender", { type: Sequelize.STRING, allowNull: false, value: "men" });
+    return queryInterface.addColumn("userdb5s", "gender", {
+      type: Sequelize.STRING,
+      defaultValue: "male",
+    });
   },
 
   down: function (queryInterface, Sequelize) {

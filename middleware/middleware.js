@@ -1,6 +1,6 @@
 const crypto = require("crypto");
 
-const User = require("../model/user");
+const {User} = require("../models");
 const secretWord = "SeCrEdWoRd";
 
 exports.checkToken = (req, res, next) => {
